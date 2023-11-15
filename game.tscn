@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://jpjyjjg73e8i"]
+
+[ext_resource type="Texture2D" uid="uid://dniqt772pxu6g" path="res://assets/background/rocks_2.png" id="1_h8li7"]
+[ext_resource type="PackedScene" uid="uid://cdxm03m163bcs" path="res://plane_cb.tscn" id="2_d23bs"]
+[ext_resource type="PackedScene" uid="uid://k7p7br660rxx" path="res://pipes.tscn" id="3_7j1jq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6236"]
+size = Vector2(504, 20)
+
+[node name="Game" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(144, 359)
+texture = ExtResource("1_h8li7")
+
+[node name="PlaneCB" parent="." instance=ExtResource("2_d23bs")]
+position = Vector2(61, 357)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 830)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(246, 25)
+shape = SubResource("RectangleShape2D_j6236")
+
+[node name="Pipes" parent="." instance=ExtResource("3_7j1jq")]
+position = Vector2(195, 440)
+
+[node name="Pipes2" parent="." instance=ExtResource("3_7j1jq")]
+position = Vector2(389, 235)
+
+[node name="Pipes3" parent="." instance=ExtResource("3_7j1jq")]
+position = Vector2(565, 640)
+
+[node name="Pipes4" parent="." instance=ExtResource("3_7j1jq")]
+position = Vector2(746, 440)
