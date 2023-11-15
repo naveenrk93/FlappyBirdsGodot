@@ -63,7 +63,7 @@ _data = {
 "fly": SubResource("Animation_n8f7y")
 }
 
-[node name="PlaneCB" type="CharacterBody2D"]
+[node name="PlaneCB" type="CharacterBody2D" groups=["plane"]]
 script = ExtResource("1_3x26p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -71,7 +71,7 @@ scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_vlowa")
 animation = &"fly"
 autoplay = "fly"
-frame_progress = 0.0267786
+frame_progress = 0.877918
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_khmi8")

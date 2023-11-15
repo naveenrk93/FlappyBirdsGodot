@@ -1,15 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://jpjyjjg73e8i"]
+[gd_scene load_steps=11 format=3 uid="uid://jpjyjjg73e8i"]
 
+[ext_resource type="Script" path="res://game.gd" id="1_bwqbd"]
 [ext_resource type="Texture2D" uid="uid://dniqt772pxu6g" path="res://assets/background/rocks_2.png" id="1_h8li7"]
 [ext_resource type="PackedScene" uid="uid://cdxm03m163bcs" path="res://plane_cb.tscn" id="2_d23bs"]
 [ext_resource type="PackedScene" uid="uid://k7p7br660rxx" path="res://pipes.tscn" id="3_7j1jq"]
+[ext_resource type="PackedScene" uid="uid://hnhhu6p72s4a" path="res://scrolling_bg.tscn" id="3_pmkh7"]
+[ext_resource type="PackedScene" uid="uid://df3b1jpdq8tqi" path="res://game_over.tscn" id="5_b3h82"]
+[ext_resource type="AudioStream" uid="uid://6vm0m8hgmnsu" path="res://assets/audio/engine.mp3" id="6_f1fd3"]
+[ext_resource type="AudioStream" uid="uid://udg7bhgttjrt" path="res://assets/audio/game_over.wav" id="7_np7fe"]
+[ext_resource type="PackedScene" uid="uid://db35aghadqcv8" path="res://hud.tscn" id="8_fgrfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j6236"]
 size = Vector2(504, 20)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_bwqbd")
+pipe_scene = ExtResource("3_7j1jq")
+
+[node name="ScrollingBG" parent="." instance=ExtResource("3_pmkh7")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(144, 359)
 texture = ExtResource("1_h8li7")
 
@@ -23,14 +34,28 @@ position = Vector2(0, 830)
 position = Vector2(246, 25)
 shape = SubResource("RectangleShape2D_j6236")
 
-[node name="Pipes" parent="." instance=ExtResource("3_7j1jq")]
-position = Vector2(195, 440)
+[node name="PipesHolder" type="Node" parent="."]
 
-[node name="Pipes2" parent="." instance=ExtResource("3_7j1jq")]
-position = Vector2(389, 235)
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
 
-[node name="Pipes3" parent="." instance=ExtResource("3_7j1jq")]
-position = Vector2(565, 640)
+[node name="PipesUpperSpawnLimit" type="Marker2D" parent="."]
 
-[node name="Pipes4" parent="." instance=ExtResource("3_7j1jq")]
-position = Vector2(746, 440)
+[node name="PipesLowerSpawnLimit" type="Marker2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("5_b3h82")]
+visible = false
+
+[node name="EngineSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_f1fd3")
+autoplay = true
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_np7fe")
+
+[node name="HUD" parent="GameOverSound" instance=ExtResource("8_fgrfq")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
